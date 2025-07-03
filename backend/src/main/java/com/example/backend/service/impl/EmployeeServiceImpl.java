@@ -5,6 +5,7 @@ import com.example.backend.entity.Employee;
 import com.example.backend.mapper.EmployeeMapper;
 import com.example.backend.repository.EmployeeRepository;
 import com.example.backend.service.EmployeeService;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -41,5 +42,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setEmail(updatedEmployeeDto.getEmail());
         Employee saved = employeeRepository.save(employee);
         return EmployeeMapper.mapToEmployeeDto(saved);
+    }
+
+    @Override
+    public void deleteEmployee(Long id) {
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employee not found with id: " + id));
+        employeeRepository.deleteById(id);
     }
 }
