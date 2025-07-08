@@ -1,22 +1,22 @@
 package com.example.backend.mapper;
 
-import com.example.backend.dto.DepartmentDTO;
+import com.example.backend.dto.DepartmentDto;
 import com.example.backend.entity.Department;
 
 public class DepartmentMapper {
-    public static DepartmentDTO mapToDepartmentDTO(Department department) {
-        return  new DepartmentDTO(
+    public static DepartmentDto mapToDepartmentDto(Department department) {
+        return  new DepartmentDto(
                 department.getId(),
-                department.getDepratmentName(),
-                department.getDepratmentDescription()
+                department.getDepartmentName(),
+                department.getDepartmentDescription()
         );
     }
 
-    public static Department mapToDepartment(DepartmentDTO departmentDTO) {
+    public static Department mapToDepartment(DepartmentDto departmentDto) {
         return new Department(
-                departmentDTO.getId(),
-                departmentDTO.getDepartmentName(),
-                departmentDTO.getDepartmentDescription()
+                departmentDto.getId(),
+                departmentDto.getDepartmentName(),
+                departmentDto.getDepartmentDescription()
         );
     }
 }
