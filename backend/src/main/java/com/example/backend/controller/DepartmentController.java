@@ -1,7 +1,6 @@
 package com.example.backend.controller;
 
 import com.example.backend.dto.DepartmentDto;
-import com.example.backend.entity.Department;
 import com.example.backend.service.DepartmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,14 +28,20 @@ public class DepartmentController {
     }
 
     @GetMapping
-    public ResponseEntity<DepartmentDto> getAllDepartments() {
+    public ResponseEntity<List<DepartmentDto>> getAllDepartments() {
         List<DepartmentDto> departments = departmentService.getAllDepartments();
-        return ResponseEntity.ok((DepartmentDto) departments);
+        return ResponseEntity.ok(departments);
     }
 
     @PutMapping("{id}")
     public ResponseEntity<DepartmentDto> getDepartmentById(@PathVariable Long id, @RequestBody DepartmentDto departmentDto) {
         DepartmentDto foundDepartment = departmentService.updateDepartment(id, departmentDto);
         return ResponseEntity.ok(foundDepartment);
+    }
+
+    @DeleteMapping("{id}")
+    public String deleteDepartment(@PathVariable Long id) {
+        departmentService.deleteDepartment(id);
+        return "Department with ID " + id + " has been deleted successfully.";
     }
 }
