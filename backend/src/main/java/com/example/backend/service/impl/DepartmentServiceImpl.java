@@ -8,6 +8,8 @@ import com.example.backend.service.DepartmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class DepartmentServiceImpl implements DepartmentService {
@@ -25,5 +27,12 @@ public class DepartmentServiceImpl implements DepartmentService {
         Department department = departmentRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Department not found with id: " + id));
         return DepartmentMapper.mapToDepartmentDto(department);
+    }
+
+    @Override
+    public List<DepartmentDto> getAllDepartments() {
+        List<Department> departments = departmentRepository.findAll();
+        return departments.stream().map(DepartmentMapper::mapToDepartmentDto)
+                .toList();
     }
 }
