@@ -35,4 +35,14 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departments.stream().map(DepartmentMapper::mapToDepartmentDto)
                 .toList();
     }
+
+    @Override
+    public DepartmentDto updateDepartment(Long id, DepartmentDto departmentDto) {
+        Department department = departmentRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Department not found with id: " + id));
+        department.setDepartmentName(departmentDto.getDepartmentName());
+        department.setDepartmentDescription(departmentDto.getDepartmentDescription());
+        Department updatedDepartment = departmentRepository.save(department);
+        return DepartmentMapper.mapToDepartmentDto(updatedDepartment);
+    }
 }
